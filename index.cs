@@ -1,286 +1,121 @@
-int iniciar_programa, opcao_menu_principal, opcao_menu_carro, opcao_garantia, voltar_menu;
-            double nota_fiscal, valor_carro;
-            string nome_carro;
-            nota_fiscal = 0;
-            opcao_menu_carro = 0;
-            opcao_garantia = 0;
-            nome_carro = "";
-            valor_carro = 0;
-            Console.WriteLine("DESEJA INICIAR O PROGRAMA? 1 - SIM 2 - NÃO");
-            iniciar_programa = int.Parse(Console.ReadLine());
-            while (iniciar_programa != 1 && iniciar_programa != 2)
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int iniciar_programa, opcao_menu_principal, opcao_menu_carro, opcao_garantia;
+        double nota_fiscal = 0, valor_carro = 0;
+        string nome_carro = "";
+
+        Console.WriteLine("DESEJA INICIAR O PROGRAMA? 1 - SIM 2 - NÃO");
+        iniciar_programa = LerOpcaoValida(1, 2);
+
+        while (iniciar_programa == 1)
+        {
+            Console.Clear();
+            Console.WriteLine("BEM VINDO À CONCESSIONÁRIA CALHAMBEQUE.\n");
+            Console.WriteLine(" ESCOLHA UMA OPÇÃO:");
+            Console.WriteLine("1 - COMPRAR CARRO");
+            Console.WriteLine("2 - NOTA FISCAL");
+            opcao_menu_principal = LerOpcaoValida(1, 2);
+
+            switch (opcao_menu_principal)
+            {
+                case 1:
+                    (nome_carro, valor_carro) = ComprarCarro();
+                    opcao_garantia = AdicionarGarantia();
+
+                    if (opcao_garantia == 1)
+                    {
+                        nota_fiscal = valor_carro + (valor_carro * 0.10);
+                    }
+                    else
+                    {
+                        nota_fiscal = valor_carro;
+                    }
+
+                    Console.Clear();
+                    Console.WriteLine("OBRIGADO PELA COMPRA !!!!");
+                    break;
+
+                case 2:
+                    ExibirNotaFiscal(nome_carro, valor_carro, opcao_garantia, nota_fiscal);
+                    break;
+            }
+
+            Console.WriteLine("DESEJA VOLTAR PARA O MENU INICIAL? 1 - SIM 2 - NÃO");
+            iniciar_programa = LerOpcaoValida(1, 2);
+        }
+
+        Console.Clear();
+        Console.WriteLine("OBRIGADO POR COMPRAR NA CONCESSIONÁRIA CALHAMBEQUE !!!!");
+    }
+
+    // Função para ler uma opção válida dentro de um intervalo
+    static int LerOpcaoValida(int min, int max)
+    {
+        int opcao;
+        do
+        {
+            opcao = int.Parse(Console.ReadLine());
+            if (opcao < min || opcao > max)
             {
                 Console.Clear();
                 Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                Console.WriteLine("1 - INICIAR PROGRAMA");
-                Console.WriteLine("2 - FECHAR");
-                iniciar_programa = int.Parse(Console.ReadLine());
             }
+        } while (opcao < min || opcao > max);
+        return opcao;
+    }
 
-            while (iniciar_programa == 1)
-            {
-                switch (iniciar_programa)
-                {
-                    case 1:
-                        
-                        Console.Clear();
-                        Console.WriteLine("BEM VINDO À CONCESSIONÁRIA CALHAMBEQUE.\n");
-                        Console.WriteLine(" ESCOLHA UMA OPÇÃO:");
-                        Console.WriteLine("1 - COMPRAR CARRO");
-                        Console.WriteLine("2 - NOTA FISCAL");
-                        opcao_menu_principal = int.Parse(Console.ReadLine());
-                        
-                        while (opcao_menu_principal != 1 && opcao_menu_principal != 2)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                            Console.WriteLine("1 - COMPRAR CARRO");
-                            Console.WriteLine("2 - NOTA FISCAL");
-                            opcao_menu_principal = int.Parse(Console.ReadLine());
-                        }
-                        switch (opcao_menu_principal)
-                        {
-                            
-                            case 1:
-                                Console.Clear();
-                                Console.WriteLine("QUAL CARRO VOCÊ DESEJA COMPRAR?");
-                                Console.WriteLine("1 - CIVIC 2020       R$ 90.000");
-                                Console.WriteLine("2 - COROLLA 2020     R$ 95.000");
-                                Console.WriteLine("3 - KWID             R$ 60.000");
-                                Console.WriteLine("4 - PALIO FIRE       R$ 45.000");
-                                opcao_menu_carro = int.Parse(Console.ReadLine());
-                                
-                                while (opcao_menu_carro != 1 && opcao_menu_carro != 2 && opcao_menu_carro != 3 && opcao_menu_carro != 4)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                                    Console.WriteLine("1 - CIVIC 2020       R$ 90.000");
-                                    Console.WriteLine("2 - COROLLA 2020     R$ 95.000");
-                                    Console.WriteLine("3 - KWID             R$ 60.000");
-                                    Console.WriteLine("4 - PALIO FIRE       R$ 45.000");
-                                    opcao_menu_carro = int.Parse(Console.ReadLine());
-                                }
-                                switch (opcao_menu_carro)
-                                {
-                                    
-                                    case 1:
-                                        nome_carro = "Civic 2020";
-                                        valor_carro = 90000;
-                                        Console.WriteLine("DESEJA INCLUIR GARANTIA ESTENDIDA? 1 - SIM 2 - NÃO");
-                                        opcao_garantia = int.Parse(Console.ReadLine());
-                                        while (opcao_garantia != 1 && opcao_garantia != 2)
-                                        {
-                                            Console.Clear();
-                                            Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                                            Console.WriteLine("DESEJA INCLUIR GARANTIA ESTENDIDA? 1 - SIM 2 - NÃO");
-                                            opcao_garantia = int.Parse(Console.ReadLine());
-                                        }
-                                        switch (opcao_garantia)
-                                        {
-                                            case 1:
-                                                nota_fiscal = nota_fiscal + 90000 + (90000 * 0.10);
-                                                break;
-                                            case 2:
-                                                nota_fiscal = 90000;
-                                                break;
-                                        }
-                                        Console.Clear();
-                                        Console.WriteLine("OBRIGADO PELA COMPRA !!!!");
-                                        Console.WriteLine("DESEJA VOLTAR PARA O MENU INICIAL? 1 - SIM 2 - NÃO");
-                                        iniciar_programa = int.Parse(Console.ReadLine());
-                                        while (iniciar_programa != 1 && iniciar_programa != 2)
-                                        {
-                                            Console.Clear();
-                                            Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                                            Console.WriteLine("1 - INICIAR PROGRAMA");
-                                            Console.WriteLine("2 - FECHAR");
-                                            iniciar_programa = int.Parse(Console.ReadLine());
-                                        }
-                                        switch (iniciar_programa)
-                                        {
-                                            case 2:
-                                                Console.Clear();
-                                                Console.WriteLine("OBRIGADO POR COMPRAR NA CONCESSIONÁRIA CALHAMBEQUE !!!!");
-                                                break;
-                                        }
-                                        break;
-                                    
-                                    case 2:
-                                        nome_carro = "Corolla 2020";
-                                        valor_carro = 95000;
-                                        Console.WriteLine("DESEJA INCLUIR GARANTIA ESTENDIDA? 1 - SIM 2 - NÃO");
-                                        opcao_garantia = int.Parse(Console.ReadLine());
-                                        while (opcao_garantia != 1 && opcao_garantia != 2)
-                                        {
-                                            Console.Clear();
-                                            Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                                            Console.WriteLine("DESEJA INCLUIR GARANTIA ESTENDIDA? 1 - SIM 2 - NÃO");
-                                            opcao_garantia = int.Parse(Console.ReadLine());
-                                        }
-                                        switch (opcao_garantia)
-                                        {
-                                            case 1:
-                                                nota_fiscal = nota_fiscal + 95000 + (95000 * 0.10);
-                                                break;
-                                            case 2:
-                                                nota_fiscal = 95000;
-                                                break;
-                                        }
-                                        Console.Clear();
-                                        Console.WriteLine("OBRIGADO PELA COMPRA !!!!");
-                                        Console.WriteLine("DESEJA VOLTAR PARA O MENU INICIAL? 1 - SIM 2 - NÃO");
-                                        iniciar_programa = int.Parse(Console.ReadLine());
-                                        while (iniciar_programa != 1 && iniciar_programa != 2)
-                                        {
-                                            Console.Clear();
-                                            Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                                            Console.WriteLine("1 - INICIAR PROGRAMA");
-                                            Console.WriteLine("2 - FECHAR");
-                                            iniciar_programa = int.Parse(Console.ReadLine());
-                                        }
-                                        switch (iniciar_programa)
-                                        {
-                                            case 2:
-                                                Console.Clear();
-                                                Console.WriteLine("OBRIGADO POR COMPRAR NA CONCESSIONÁRIA CALHAMBEQUE !!!!");
-                                                break;
-                                        }
-                                        break;
-                                    
-                                    case 3:
-                                        nome_carro = "Kwid";
-                                        valor_carro = 60000;
-                                        Console.WriteLine("DESEJA INCLUIR GARANTIA ESTENDIDA? 1 - SIM 2 - NÃO");
-                                        opcao_garantia = int.Parse(Console.ReadLine());
-                                        while (opcao_garantia != 1 && opcao_garantia != 2)
-                                        {
-                                            Console.Clear();
-                                            Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                                            Console.WriteLine("DESEJA INCLUIR GARANTIA ESTENDIDA? 1 - SIM 2 - NÃO");
-                                            opcao_garantia = int.Parse(Console.ReadLine());
-                                        }
-                                        switch (opcao_garantia)
-                                        {
-                                            case 1:
-                                                nota_fiscal = nota_fiscal + 60000 + (60000 * 0.10);
-                                                break;
-                                            case 2:
-                                                nota_fiscal = 60000;
-                                                break;
-                                        }
-                                        Console.Clear();
-                                        Console.WriteLine("OBRIGADO PELA COMPRA !!!!");
-                                        Console.WriteLine("DESEJA VOLTAR PARA O MENU INICIAL? 1 - SIM 2 - NÃO");
-                                        iniciar_programa = int.Parse(Console.ReadLine());
-                                        while (iniciar_programa != 1 && iniciar_programa != 2)
-                                        {
-                                            Console.Clear();
-                                            Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                                            Console.WriteLine("1 - INICIAR PROGRAMA");
-                                            Console.WriteLine("2 - FECHAR");
-                                            iniciar_programa = int.Parse(Console.ReadLine());
-                                        }
-                                        switch (iniciar_programa)
-                                        {
-                                            case 2:
-                                                Console.Clear();
-                                                Console.WriteLine("OBRIGADO POR COMPRAR NA CONCESSIONÁRIA CALHAMBEQUE !!!!");
-                                                break;
-                                        }
-                                        break;
-                                    
-                                    case 4:
-                                        nome_carro = "Palio Fire";
-                                        valor_carro = 45000;
-                                        Console.WriteLine("DESEJA INCLUIR GARANTIA ESTENDIDA? 1 - SIM 2 - NÃO");
-                                        opcao_garantia = int.Parse(Console.ReadLine());
-                                        while (opcao_garantia != 1 && opcao_garantia != 2)
-                                        {
-                                            Console.Clear();
-                                            Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                                            Console.WriteLine("DESEJA INCLUIR GARANTIA ESTENDIDA? 1 - SIM 2 - NÃO");
-                                            opcao_garantia = int.Parse(Console.ReadLine());
-                                        }
-                                        switch (opcao_garantia)
-                                        {
-                                            case 1:
-                                                nota_fiscal = nota_fiscal + 45000 + (45000 * 0.10);
-                                                break;
-                                            case 2:
-                                                nota_fiscal = 45000;
-                                                break;
-                                        }
-                                        break;
-                                        Console.Clear();
-                                        Console.WriteLine("OBRIGADO PELA COMPRA !!!!");
-                                        Console.WriteLine("DESEJA VOLTAR PARA O MENU INICIAL? 1 - SIM 2 - NÃO");
-                                        iniciar_programa = int.Parse(Console.ReadLine());
-                                        while (iniciar_programa != 1 && iniciar_programa != 2)
-                                        {
-                                            Console.Clear();
-                                            Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                                            Console.WriteLine("1 - INICIAR PROGRAMA");
-                                            Console.WriteLine("2 - FECHAR");
-                                            iniciar_programa = int.Parse(Console.ReadLine());
-                                        }
-                                        switch (iniciar_programa)
-                                        {
-                                            case 2:
-                                                Console.Clear();
-                                                Console.WriteLine("OBRIGADO POR COMPRAR NA CONCESSIONÁRIA CALHAMBEQUE !!!!");
-                                                break;
-                                        }
-                                }
-                                break;
+    // Função para escolher o carro e retornar nome e valor
+    static (string, double) ComprarCarro()
+    {
+        int opcao_menu_carro;
+        Console.Clear();
+        Console.WriteLine("QUAL CARRO VOCÊ DESEJA COMPRAR?");
+        Console.WriteLine("1 - CIVIC 2020       R$ 90.000");
+        Console.WriteLine("2 - COROLLA 2020     R$ 95.000");
+        Console.WriteLine("3 - KWID             R$ 60.000");
+        Console.WriteLine("4 - PALIO FIRE       R$ 45.000");
 
-                            case 2:
-                                Console.Clear();
-                                Console.WriteLine("NOTA FISCAL DE PRODUTO");
-                                Console.WriteLine("O produto comprado foi : {0}", nome_carro);
-                                Console.WriteLine("O valor do carro foi: R$ {0}", valor_carro);
-                                switch (opcao_garantia)
-                                {
-                                    case 1:
-                                        Console.WriteLine("Possui garantia estendida? SIM");
-                                        Console.WriteLine("O valor da garantia estendida é: R$ {0}", valor_carro * 0.10);
-                                        break;
-                                    case 2:
-                                        Console.WriteLine("Possui garantia estendida? NÃO");
-                                        break;
-                                }
-                                Console.WriteLine("Valor total da nota: R$ {0}", nota_fiscal);
-                                Console.ReadKey();
-                                Console.WriteLine("DESEJA VOLTAR PARA O MENU INICIAL? 1 - SIM 2 - NÃO");
-                                iniciar_programa = int.Parse(Console.ReadLine());
-                                while (iniciar_programa != 1 && iniciar_programa != 2)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("CÓDIGO INVÁLIDO !!! DIGITE NOVAMENTE UM CÓDIGO VÁLIDO");
-                                    Console.WriteLine("1 - INICIAR PROGRAMA");
-                                    Console.WriteLine("2 - FECHAR");
-                                    iniciar_programa = int.Parse(Console.ReadLine());
-                                }
-                                switch (iniciar_programa)
-                                {
-                                    case 2:
-                                        Console.Clear();
-                                        Console.WriteLine("OBRIGADO POR COMPRAR NA CONCESSIONÁRIA CALHAMBEQUE !!!!");
-                                        break;
-                                }
-                                break;
-                        }
-                        break;
-                    case 2:
-                        Console.Clear();
-                        Console.WriteLine("OBRIGADO POR COMPRAR NA CONCESSIONÁRIA CALHAMBEQUE !!!!");
-                        break;
-                }
+        opcao_menu_carro = LerOpcaoValida(1, 4);
+        switch (opcao_menu_carro)
+        {
+            case 1: return ("Civic 2020", 90000);
+            case 2: return ("Corolla 2020", 95000);
+            case 3: return ("Kwid", 60000);
+            case 4: return ("Palio Fire", 45000);
+            default: return ("", 0);
+        }
+    }
 
-            }
-            switch (iniciar_programa)
-            {
-                case 2:
-                    Console.Clear();
-                    Console.WriteLine("OBRIGADO POR COMPRAR NA CONCESSIONÁRIA CALHAMBEQUE !!!!");
-                    break;
-            }
+    // Função para adicionar garantia estendida
+    static int AdicionarGarantia()
+    {
+        Console.WriteLine("DESEJA INCLUIR GARANTIA ESTENDIDA? 1 - SIM 2 - NÃO");
+        return LerOpcaoValida(1, 2);
+    }
+
+    // Função para exibir a nota fiscal
+    static void ExibirNotaFiscal(string nome_carro, double valor_carro, int opcao_garantia, double nota_fiscal)
+    {
+        Console.Clear();
+        Console.WriteLine("NOTA FISCAL DE PRODUTO");
+        Console.WriteLine("O produto comprado foi : {0}", nome_carro);
+        Console.WriteLine("O valor do carro foi: R$ {0}", valor_carro);
+
+        if (opcao_garantia == 1)
+        {
+            Console.WriteLine("Possui garantia estendida? SIM");
+            Console.WriteLine("O valor da garantia estendida é: R$ {0}", valor_carro * 0.10);
+        }
+        else
+        {
+            Console.WriteLine("Possui garantia estendida? NÃO");
+        }
+
+        Console.WriteLine("Valor total da nota: R$ {0}", nota_fiscal);
+        Console.ReadKey();
+    }
+}
